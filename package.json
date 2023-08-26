@@ -1,5 +1,17 @@
 {
-  "dependencies": {
+  "dependencies": {},
+  "name": "centralbank.mobirisesite.com",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "live-server": "^1.2.2",
     "vercel": "^31.4.0"
-  }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo 'я люблю алёну'"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
