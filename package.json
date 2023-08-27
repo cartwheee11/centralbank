@@ -1,5 +1,4 @@
 {
-  "dependencies": {},
   "name": "centralbank.mobirisesite.com",
   "version": "1.0.0",
   "main": "index.js",
@@ -13,5 +12,8 @@
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "faunadb": "^4.8.0"
+  }
 }
