@@ -235,7 +235,7 @@
               <div class="col-md-7">
                 <div class="align-left">
                   <h3 class="mbr-section-title mbr-fonts-style mb-2 display-5"><strong>Имперский Гео</strong></h3>
-                  <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-7">$4,64 → 1₲</h4>
+                  <h4 class="mbr-section-subtitle mbr-fonts-style mb-3 display-7 exchangeRate">Загрузка...</h4>
                   <p class="mbr-section-text mbr-fonts-style mb-0 display-7">
                     Покупка&nbsp;₲ за $<br>
                   </p>
@@ -279,7 +279,17 @@
   <script src="https://r.mobirisesite.com/322209/assets/ytplayer/index.js"></script>
   <script src="https://r.mobirisesite.com/322209/assets/dropdown/js/navbar-dropdown.js"></script>
   <script src="https://r.mobirisesite.com/322209/assets/theme/js/script.js"></script>
-  
+  <script async>
+    const exchangeRate = document.querySelector('.exchangeRate');
+    fetch('https://centralbank.pw/api/getCurrentRate').then(res => res.json()).then(cur => {
+      console.log(typeof cur);
+
+      exchangeRate.innerText = `$${(cur + 0.5).toFixed(2)} → 1₲`
+    })
+
+
+    
+  </script>  
   
   
 </body>
