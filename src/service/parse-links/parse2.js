@@ -1,0 +1,1 @@
+const links = require('./links.json');
