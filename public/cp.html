@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="container">
+    <div class="submissions"></div>
+  </div>
+
+  
+  <script type="module" src="./js/api.js"></script>
+  <script type="module" type="text/javascript">
+    const submissionsDOM = document.querySelector('.submissions');
+
+    import * as api from "./js/api.js";
+    api.getCpData().then(res => {
+      if(res.success) {
+        console.log(res.submissions);
+        const subs = res.submissions;
+
+        subs.forEach(sub => {
+          const data = sub.data;
+
+          const el = document.createElement('p');
+          el.innerText = `${data.email} ${data.name} ${data.reason}`
+          submissionsDOM.append(el);
+        })
+
+      } else {
+        alert(res.message);
+      }
+    })
+  </script>
+</body>
+</html>

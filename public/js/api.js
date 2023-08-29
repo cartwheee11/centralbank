@@ -19,3 +19,24 @@ export async function login(nickname, pass) {
   const json = res.json();
   return json;
 }
+
+export async function getCpData() {
+
+  const authJSON = localStorage.getItem('auth');
+  console.log(authJSON)
+  if(authJSON) {
+    const res = await fetch('/api/getCpData', {
+      method: 'post',
+      body: authJSON
+    });
+
+    console.log(res)
+
+    const json = res.json();
+    return json;
+  } else {
+    alert('Вы не авторизованы');
+  }
+
+  
+}
