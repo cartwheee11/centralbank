@@ -171,10 +171,10 @@
         <div class="card-wrapper">
           <div class="card-box align-center">
             <h1 class="card-title mbr-fonts-style mb-4 display-1">
-              <strong>Предупреждение</strong></h1>
-            <p class="mbr-text mbr-fonts-style mb-4 display-7">
-              В данный момент управление своим счетом возможно только через отделения банка Централь. По всем вопросам обратитесь к сотрудникам банка.</p>
-            <div class="mbr-section-btn mt-4"><a class="btn btn-secondary display-7" href="contact.html#contacts01-2a"><span class="mbrib-users mbr-iconfont mbr-iconfont-btn"></span>Контакты для связи</a></div>
+              <strong>Вход в аккаунт</strong></h1>
+              <p><input placeholder="Никнейм" type="text" class="nickname"></p>
+              <p><input placeholder="Пароль" type="password" class="pass"></p>
+            <div class="mbr-section-btn mt-4"><button class="submit-button btn btn-secondary display-7"><span class="mbrib-users mbr-iconfont mbr-iconfont-btn"></span>Войти</button></div>
           </div>
         </div>
       </div>
@@ -206,8 +206,32 @@
   <script src="/lib/r.mobirisesite.com/324644/assets/ytplayer/index.js"></script>
   <script src="/lib/r.mobirisesite.com/324644/assets/dropdown/js/navbar-dropdown.js"></script>
   <script src="/lib/r.mobirisesite.com/324644/assets/theme/js/script.js"></script>
+  <script type="module" src="./js/api.js"></script>
   
-  
+  <script type="module">
+    import * as api from './js/api.js';
+    const nicknameInput = document.querySelector('.nickname');
+    const passInput = document.querySelector('.pass');
+    const submitButton = document.querySelector('.submit-button')
+    
+    submitButton.onclick = () => {
+      api.login(nicknameInput.value, passInput.value).then(res => {
+        if(res.success) {
+          alert('Успешно :)')
+          console.log(res.user)
+
+          localStorage.setItem('user', JSON.stringify(res.user));
+          localStorage.setItem('auth', JSON.stringify({
+            nickname: nicknameInput.value,
+            pass: passInput.value
+          }));
+        } else {
+          alert(res.message)
+        }
+      })  
+    }
+    
+  </script>
   
 </body>
 </html>
