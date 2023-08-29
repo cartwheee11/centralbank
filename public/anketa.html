@@ -185,7 +185,7 @@
         </div>
         <div class="row justify-content-center mt-4">
             <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                <form action="https://mobirise.eu/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="izvQv8wQvUH9VSdXdH5xTigLb9IOi5F/7vXrYLMTQB/gTNyPA592GYhCmhX2JgFPUbRyP/uOkt9GVJJRPDjmTCf6v5Kb0tmWUnxjz141z2OyebqCr5O2UbOcGTtXFTk9">
+                <div class="mbr-form form-with-styler" data-form-title="Form Name">
                     <div class="row">
                         <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Спасибо за обращение! 
 С Вами скоро свяжутся по Email</div>
@@ -195,18 +195,18 @@
                     </div>
                     <div class="dragArea row">
                         <div class="col-md col-sm-12 form-group mb-3" data-for="name">
-                            <input type="text" name="name" placeholder="Никнейм" data-form-field="name" class="form-control" value="" id="name-form02-3e">
+                            <input type="text" name="name" placeholder="Никнейм" data-form-field="name" class="form-control input-name" id="name-form02-3e">
                         </div>
                         <div class="col-md col-sm-12 form-group mb-3" data-for="email">
-                            <input type="email" name="email" placeholder="E-mail" data-form-field="email" class="form-control" value="" id="email-form02-3e">
+                            <input type="email" name="email" placeholder="E-mail" data-form-field="email" class="form-control input-email" id="email-form02-3e">
                         </div>
                         
                         <div class="col-12 form-group mb-3" data-for="textarea">
-                            <textarea name="textarea" placeholder="Причина обращения" data-form-field="textarea" class="form-control" id="textarea-form02-3e"></textarea>
+                            <textarea name="textarea" placeholder="Причина обращения" data-form-field="textarea" class="form-control input-reason" id="textarea-form02-3e"></textarea>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn"><button type="submit" class="btn btn-secondary display-7"><span class="mbrib-paper-plane mbr-iconfont mbr-iconfont-btn"></span>Отправить</button></div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn"><button class="btn submit-button btn-secondary display-7"><span class="mbrib-paper-plane mbr-iconfont mbr-iconfont-btn"></span>Отправить</button></div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -235,10 +235,29 @@
   <script src="/lib/r.mobirisesite.com/324644/assets/smoothscroll/smooth-scroll.js"></script>
   <script src="/lib/r.mobirisesite.com/324644/assets/ytplayer/index.js"></script>
   <script src="/lib/r.mobirisesite.com/324644/assets/dropdown/js/navbar-dropdown.js"></script>
-  <script src="/lib/r.mobirisesite.com/324644/assets/theme/js/script.js"></script>
-  <script src="/lib/r.mobirisesite.com/324644/assets/formoid/formoid.min.js"></script>
+  <!-- <script src="/lib/r.mobirisesite.com/324644/assets/theme/js/script.js"></script> -->
+  <!-- <script src="/lib/r.mobirisesite.com/324644/assets/formoid/formoid.min.js"></script> -->
+  <script type="module" src="./js/api.js"></script>
   
-  
+  <script type="module">
+    import * as api from './js/api.js';
+
+    const submitButton = document.querySelector('.submit-button');
+
+    
+
+    submitButton.onclick = (e) => {
+      const name = document.querySelector('.input-name').value;
+      const email = document.querySelector('.input-email').value;
+      const reason = document.querySelector('.input-reason').value;
+
+      api.submit(name, email, reason).then(console.log)
+
+
+    }
+
+
+  </script>
   
 </body>
 </html>
