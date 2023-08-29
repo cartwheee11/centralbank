@@ -285,8 +285,8 @@
     fetch('https://centralbank.pw/api/getCurrentRate').then(res => res.json()).then(cur => {
       console.log(typeof cur);
 
-      exchangeRate.innerText = `1₲ → $${(cur + 0.5).toFixed(2)}`
-      exchangeRate2.innerText = `$${(cur - 0.5).toFixed(2)} → 1₲`
+      exchangeRate2.innerText = `1₲ → $${(cur - 0.5).toFixed(2)}`
+      exchangeRate.innerText = `$${(cur + 0.5).toFixed(2)} → 1₲`
     })    
   </script>  
   
