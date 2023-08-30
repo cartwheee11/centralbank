@@ -20,16 +20,24 @@ export default async function (req, res) {
         return;
       } 
 
-      const response = await db.query(
+      const responseSubs = await db.query(
         q.Map(
           q.Paginate(q.Documents(q.Collection('submissions')), { size: 999999 }),
           q.Lambda('elem', q.Get(q.Var('elem')))
         )
       )
 
+      const responseUsers = await db.query(
+        q.Map(
+          q.Paginate(q.Documents(q.Collection('users')), { size: 999999 }),
+          q.Lambda('elem', q.Get(q.Var('elem')))
+        )
+      )
+
       res.json({
         success: true,
-        submissions: response.data
+        submissions: responseSubs.data,
+        users: responseUsers.data
       })
     } else {
       res.json({

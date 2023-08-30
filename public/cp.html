@@ -7,6 +7,11 @@
 </head>
 <body>
 
+  <div class="container" style="width: 100%; margin: 0 auto; border: 1px solid red">
+    <div class="submissions" style="display: inline-block; width: 49%" ></div>
+    <div class="users" style="display: inline-block; width: 49%; vertical-align: top;" ></div>
+  </div>
+
   <div class="container" style="width: 1000px; margin: 0 auto; border: 1px solid red">
     <div class="submissions"></div>
   </div>
@@ -21,13 +26,80 @@
       if(res.success) {
         console.log(res.submissions);
         const subs = res.submissions;
+        const users = res.users;
 
         subs.forEach(sub => {
           const data = sub.data;
 
-          const el = document.createElement('p');
-          el.innerText = `E-mail: ${data.email}, Имя: ${data.name}, Причина обращения: ${data.reason}`
+          const el = document.createElement('div');
+
+          const subInfo = document.createElement('p');
+
+          const allowButton = document.createElement('button');
+          allowButton.innerText = 'Одобрить'
+          const regInput = document.createElement('input');
+          regInput.placeholder = 'задать регистрацию'
+          const passInput = document.createElement('input');
+          passInput.placeholder = 'задать ICN';
+          allowButton.onclick = () => {
+            console.log('клик клик')
+            const pass = passInput.value;
+            const registration = regInput.value;
+
+
+            const { name, email, reason } = data;
+            console.log(pass, registration, name, email, reason);
+            api.register(name, email, reason, pass, registration).then((res) => {
+              if(res.success) {
+                console.log(sub.ref['@ref'].id);
+                api.removeSubmission(sub.ref['@ref'].id).then((res) => {
+                  if(!res.success) {
+                    alert('удаление заявки не состоялось')
+                  } else {
+                    location.reload();
+                  }
+                })
+              } else {
+                alert(res.message);
+              }
+            })
+          }
+          subInfo.innerText = `E-mail: ${data.email}\nИмя: ${data.name}\nПричина обращения: ${data.reason}\n`
+          el.style = 'padding-bottom: 30px';
+          el.append(subInfo)
+          el.append(regInput)
+          el.append(passInput)
+          el.append(allowButton)
+
           submissionsDOM.append(el);
+        })
+
+        const usersDOM = document.querySelector('.users');
+        users.forEach(user => {
+          const data = user.data;
+          
+          const el = document.createElement('div');
+          el.style='padding-bottom: 30px';
+
+          const { nickname, email, reason, pass, registration } = data;
+
+          const about =  document.createElement('p');
+          about.innerText = `${nickname}\nemail: ${email}\nРегистрация: ${registration}`
+          const bunButton = document.createElement('button');
+          bunButton.innerText = 'Удалить игрока'
+          bunButton.onclick = () => {
+            api.removeUser(user.ref['@ref'].id).then(res => {
+              if(!res.success) {
+                alert('удаление пользователя не состоялось')
+              } else {
+                location.reload();
+              }
+            })
+          }
+
+          el.append(about);
+          el.append(bunButton);
+          usersDOM.append(el);
         })
 
       } else {
