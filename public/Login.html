@@ -298,8 +298,15 @@
     const showPassButton = document.querySelector('.show-pass-button');
     showPassButton.onclick = () => {
       const auth = JSON.parse(localStorage.getItem('auth'));
-      accountPass.innerText = auth.pass
-      showPassButton.style = 'display: none';
+      if(showPassButton.innerText == 'Показать') {
+        accountPass.innerText = auth.pass
+        showPassButton.innerText = 'Скрыть';  
+      } else {
+        accountPass.innerText = auth.pass.slice(0, 4) + '**********';
+        showPassButton.innerText = 'Показать';  
+      }
+      
+
     }
 
     function updateAccoutInfo(nickname, pass, registration) {
