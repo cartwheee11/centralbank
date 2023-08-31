@@ -9,7 +9,17 @@
 
   <div class="container" style="width: 100%; margin: 0 auto; border: 1px solid red">
     <div class="submissions" style="display: inline-block; width: 49%" ><h1>Заявки</h1></div>
-    <div class="users" style="display: inline-block; width: 49%; vertical-align: top;" ><h1>Список пользователей</h1></div>
+    <div class="users" style="display: inline-block; width: 49%; vertical-align: top;" >
+      <h1>Добавить пользователя</h1>
+      <p><input class="add-nickname" type="text" placeholder="Никнейм"></p>
+      <p><input class="add-ICN" type="text" placeholder="ICN"></p>
+      <p><input class="add-reason" type="text" placeholder="Причина обращения"></p>
+      <p><input class="add-registration" type="text" placeholder="Регистрация"></p>
+      <p><input class="add-email" type="text" placeholder="email"></p>
+      <button class="add-button">Добавить</button>
+      <br>
+      <h1>Список пользователей</h1>
+    </div>
   </div>
 
   
@@ -121,6 +131,30 @@
         alert(res.message);
       }
     })
+
+    const addNickname = document.querySelector(".add-nickname");
+    const addPass = document.querySelector(".add-ICN");
+    const addRegistration = document.querySelector(".add-registration");
+    const addEmail = document.querySelector(".add-email");
+    const addButton = document.querySelector(".add-button");
+    const addReason = document.querySelector(".add-reason");
+
+    addButton.onclick = () => {
+      const nickname = addNickname.value;
+      const pass = addPass.value;
+      const registration = addRegistration.value;
+      const email = addEmail.value;
+      const reason = addReason.value;
+      api.register(nickname, email, reason, pass, registration).then(res => {
+        if(res.success) {
+          addButton.innerText = 'Подождите...'
+          location.reload()
+        } else {
+          alert(JSON.stringify(res.message))
+        }
+      })
+    }
+
   </script>
 </body>
 </html>
