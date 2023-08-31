@@ -33,6 +33,22 @@
 
           const allowButton = document.createElement('button');
           allowButton.innerText = 'Одобрить'
+
+          const rejectButton = document.createElement('button');
+          rejectButton.innerText = 'Удалить'
+          
+          rejectButton.onclick = () => {
+            el.style = 'padding-bottom: 30px; opacity: 0.5 !important';
+            api.removeSubmission(sub.ref['@ref'].id).then(res => {
+              if(res.success) {
+                // location.reload();
+                el.style="display: none";
+              } else {
+                alert(res.message)
+              }
+            })
+          }
+
           const regInput = document.createElement('input');
           regInput.placeholder = 'задать регистрацию'
           const passInput = document.createElement('input');
@@ -66,6 +82,7 @@
           el.append(regInput)
           el.append(passInput)
           el.append(allowButton)
+          el.append(rejectButton)
 
           submissionsDOM.append(el);
         })
@@ -84,11 +101,13 @@
           const bunButton = document.createElement('button');
           bunButton.innerText = 'Удалить игрока'
           bunButton.onclick = () => {
+            el.style='padding-bottom: 30px; opacity: 0.5';
             api.removeUser(user.ref['@ref'].id).then(res => {
               if(!res.success) {
                 alert('удаление пользователя не состоялось')
               } else {
-                location.reload();
+                // location.reload();
+                el.style='display: none';
               }
             })
           }
