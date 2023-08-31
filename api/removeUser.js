@@ -8,17 +8,27 @@ const q = fauna.query;
 export default async function (req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
 
-  const ref = req.body;
+  const { auth, ref } = JSON.parse(req.body);
 
-  console.log(ref)
+  fetch(req.headers.origin + '/api/login', {
+    method: 'post',
+    body: JSON.stringify(auth)
+  }).then(res => res.json()).then(async json => {
+    console.log(json)
+    if(json.success && json.user.role == 'admin') {
+      if(ref) {
+        db.query(q.Delete(
+          q.Ref(q.Collection('users'), ref + '')
+        )).then(() => {
+          res.json({ success: true });
+        }).catch((e) => {
+          res.json({ success: false, message: JSON.stringify(e) })
+        })
+      }
+    } else {
+      res.json({success: false, message: 'авторизация не пройдена'})
+    }
+  })
 
-  if(ref) {
-    db.query(q.Delete(
-      q.Ref(q.Collection('users'), ref + '')
-    )).then(() => {
-      res.json({ success: true });
-    }).catch((e) => {
-      res.json({ success: false, message: JSON.stringify(e) })
-    })
-  }
+  
 }

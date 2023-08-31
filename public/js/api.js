@@ -44,9 +44,11 @@ export async function getCpData() {
 export async function register(nickname, email, reason, pass, registration) {
   console.log(nickname, email, reason, pass, registration)
 
+  const auth = JSON.parse(localStorage.getItem('auth'));
+
   const res = await fetch('/api/register', {
     method: 'post',
-    body: JSON.stringify({nickname, email, reason, pass, registration})
+    body: JSON.stringify({nickname, email, reason, pass, registration, auth})
   });
 
   const json = res.json();
@@ -55,9 +57,11 @@ export async function register(nickname, email, reason, pass, registration) {
 
 export async function removeSubmission(ref) {
 
+  const auth = JSON.parse(localStorage.getItem('auth'));
+
   const res = await fetch('/api/removeSubmission', {
     method: 'post',
-    body: ref + ''
+    body: JSON.stringify({ref: ref + '', auth})
   });
 
   const json = res.json();
@@ -66,9 +70,11 @@ export async function removeSubmission(ref) {
 
 export async function removeUser(ref) {
 
+  const auth = JSON.parse(localStorage.getItem('auth'));
+
   const res = await fetch('/api/removeUser', {
     method: 'post',
-    body: ref + ''
+    body: JSON.stringify({ref: ref + '', auth})
   });
 
   const json = res.json();

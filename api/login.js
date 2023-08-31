@@ -10,7 +10,7 @@ export default async function (req, res) {
 
   const { nickname, pass } = JSON.parse(req.body);
 
-
+  console.log(JSON.parse(req.body), nickname, pass);
   if(nickname && pass) {
     const response = await db.query(
       q.Map(
