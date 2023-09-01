@@ -187,15 +187,15 @@
                   </div>
               </div>
           </div>
-          <!-- <div class="item features-without-image col-12 col-md-6">
+          <div class="item features-without-image col-12 col-md-6">
               <div class="item-wrapper">
                   <div class="text-wrapper">
                       <h6 class="card-title mbr-fonts-style mb-3 display-5"><strong>Вклад</strong></h6>
                       <p class="account-deposit mbr-text mbr-fonts-style display-7">Загрузка...</p>
                   </div>
               </div>
-          </div> -->
-          <div class="item features-without-image col-12 col-md-12">
+          </div>
+          <div class="item features-without-image col-12 col-md-6">
               <div class="item-wrapper">
                   <div class="text-wrapper">
                       <h6 class="card-title mbr-fonts-style col-md-12 col-12 display-5">
@@ -284,7 +284,7 @@
     const accountNickname = document.querySelector('.account-nickname');
     const accountPass = document.querySelector('.account-pass');
     const accountRegistration = document.querySelector('.account-registration')
-    // const accountDeposit = document.querySelector('.account-deposit');
+    const accountDeposit = document.querySelector('.account-deposit');
     const accountContainer = document.querySelector('.account-container');
     const headerContainer = document.querySelector('.header-container');
     const loginSection = document.querySelector('.login-form-section');
@@ -310,10 +310,10 @@
 
     }
 
-    function updateAccoutInfo(nickname, pass, registration) {
+    function updateAccoutInfo(nickname, pass, registration, deposit) {
       accountNickname.innerText = nickname;
       accountPass.innerText = pass.slice(0, 4) + '**********';
-      // accountDeposit.innerText = deposit;
+      accountDeposit.innerText = deposit;
       accountRegistration.innerText = registration;
 
       loginSection.style = 'display: none';
@@ -325,7 +325,7 @@
       const user = JSON.parse(localStorage.getItem('user'));
       const auth = JSON.parse(localStorage.getItem('auth'));
 
-      updateAccoutInfo(user.nickname, auth.pass, user.registration)   
+      updateAccoutInfo(user.nickname, auth.pass, user.registration, user.deposit)   
       console.log('askjdhjkas')   
     }
     
