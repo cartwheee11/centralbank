@@ -104,10 +104,10 @@
           const el = document.createElement('div');
           el.style='padding-bottom: 30px';
 
-          const { nickname, email, reason, pass, registration } = data;
+          const { nickname, email, reason, pass, registration, deposit, role} = data;
 
           const about =  document.createElement('p');
-          about.innerText = `${nickname}\nemail: ${email}\nРегистрация: ${registration}`
+          about.innerText = `${nickname}\nICN: ${pass}\nEmail: ${email}\nРегистрация: ${registration}\nВклад: ${deposit}\nРоль: ${role}\n`
           const bunButton = document.createElement('button');
           bunButton.innerText = 'Удалить игрока'
           bunButton.onclick = () => {
@@ -122,8 +122,76 @@
             })
           }
 
+          const editButton = document.createElement('button');
+          editButton.innerText = 'Изменить';
+          editButton.onclick = () => {
+            editButton.disabled = true;
+
+            const editNickname = document.createElement('input')
+            editNickname.placeholder = 'Никнейм';
+
+            const editPass = document.createElement('input')
+            editPass.placeholder = 'ICN';
+
+            // const eiditReason = document.createElement('input')
+            // eiditReason.placeholder = 'Причина заявки';
+
+            const editEmail = document.createElement('input')
+            editEmail.placeholder = 'E-mail';
+
+            const editRole = document.createElement('input')
+            editRole.placeholder = 'Роль';
+
+            const editDeposit = document.createElement('input')
+            editDeposit.placeholder = 'Вклад';
+
+            const editRegistration = document.createElement('input')
+            editRegistration.placeholder = 'Регистрация';
+
+            const doEdit = document.createElement('button')
+            doEdit.innerText= 'Применить';
+
+            doEdit.onclick = () => {
+              editButton.disabled = true;
+              el.style = 'padding-bottom: 30px; opacity: 0.5';
+              api.editUser(user.ref['@ref'].id, {
+                nickname: editNickname.value || undefined,
+                pass: editPass.value || undefined,
+                email: editEmail.value || undefined,
+                role: editRole.value || undefined,
+                deposit: editDeposit.value || undefined,
+                registration: editRegistration.value || undefined,
+
+              }).then(res => {
+                if(res.success) {
+                  el.style = 'padding-bottom: 30px; opacity: 1';
+                  about.innerText = `${res.data.nickname}\nICN: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nВклад: ${res.data.deposit}\nРоль: ${res.data.role}\n`
+                  editButton.disabled = false;
+
+                  editNickname.value = '';
+                  editPass.value = '';
+                  editEmail.value = '';
+                  editRole.value = '';
+                  editDeposit.value = '';
+                  editRegistration = '';
+                } else {
+                  el.style = 'padding-bottom: 30px; opacity: 1';                  
+                  alert(res.message)
+                }
+              })
+            }
+
+            const br = () => {
+              return document.createElement('br');
+            } 
+
+            el.append(br(), editNickname, br(), editPass, br(), editEmail, br(), editRole, br(), editDeposit, br(), editRegistration, br(), doEdit)
+
+          }
+
           el.append(about);
           el.append(bunButton);
+          el.append(editButton)
           usersDOM.append(el);
         })
 

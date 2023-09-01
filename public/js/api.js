@@ -80,3 +80,16 @@ export async function removeUser(ref) {
   const json = res.json();
   return json;
 }
+
+export async function editUser(ref, data) {
+
+  const auth = JSON.parse(localStorage.getItem('auth'));
+
+  const res = await fetch('/api/editUser', {
+    method: 'post',
+    body: JSON.stringify({ref: ref + '', data, auth})
+  });
+
+  const json = res.json();
+  return json;
+}
