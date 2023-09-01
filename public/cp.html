@@ -107,7 +107,7 @@
           const { nickname, email, reason, pass, registration, deposit, role} = data;
 
           const about =  document.createElement('p');
-          about.innerText = `${nickname}\nICN: ${pass}\nEmail: ${email}\nРегистрация: ${registration}\nВклад: ${deposit}\nРоль: ${role}\n`
+          about.innerText = `Никнейм: ${nickname}\nICN: ${pass}\nEmail: ${email}\nРегистрация: ${registration}\nВклад: ${deposit}\nРоль: ${role}\n`
           const bunButton = document.createElement('button');
           bunButton.innerText = 'Удалить игрока'
           bunButton.onclick = () => {
@@ -165,7 +165,7 @@
               }).then(res => {
                 if(res.success) {
                   el.style = 'padding-bottom: 30px; opacity: 1';
-                  about.innerText = `${res.data.nickname}\nICN: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nВклад: ${res.data.deposit}\nРоль: ${res.data.role}\n`
+                  about.innerText = `Никнейм: ${res.data.nickname}\nICN: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nВклад: ${res.data.deposit}\nРоль: ${res.data.role}\n`
                   editButton.disabled = false;
 
                   editNickname.value = '';
@@ -173,7 +173,7 @@
                   editEmail.value = '';
                   editRole.value = '';
                   editDeposit.value = '';
-                  editRegistration = '';
+                  editRegistration.value = '';
                 } else {
                   el.style = 'padding-bottom: 30px; opacity: 1';                  
                   alert(res.message)
