@@ -1,4 +1,3 @@
-
 require('dotenv').config();
 
 const fauna = require('faunadb');
@@ -18,7 +17,7 @@ export default async function (req, res) {
 
     db.query(
       q.Update(
-        q.Ref(q.Collection('rate'), '374216964969595472'),
+        q.Ref(q.Collection('rate'), '374672030509826128'),
         { data: { current: cur } }
       )
     ).then(() => {

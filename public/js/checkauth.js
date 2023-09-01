@@ -4,13 +4,14 @@ const auth = JSON.parse(localStorage.getItem('auth'));
 if(auth) {
   api.login(auth.nickname, auth.pass).then(res => {
     if(!res.success) {
-      console.log(res.user.role)
       localStorage.removeItem('auth');
       localStorage.removeItem('user');
 
       location.reload();
     } else {
+      localStorage.setItem('user', JSON.stringify(res.user))
       if(res.user.role == 'admin') {
+
         const el = document.createElement('a');
         el.href = '/cp.html';
         console.log(res.user.role)
