@@ -14,6 +14,8 @@
     .button-primary {
     }
 
+    
+
     p {
       font-size: 20px;
     }
@@ -59,7 +61,15 @@
       margin-top: 10px;
     }
 
-    
+    .users > h2{
+      margin-top: 30px !important
+    }
+
+    @media screen and (max-width: 800px) {
+      .cp-wrapper {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -212,19 +222,19 @@
 
             const editEmail = document.createElement('input')
             editEmail.placeholder = 'E-mail';
-            // editEmail.type = 'text'
+            editEmail.type = 'text'
 
             const editRole = document.createElement('input')
             editRole.placeholder = 'Роль';
-            // editRole.type = 'text'
+            editRole.type = 'text'
 
             const editDeposit = document.createElement('input')
             editDeposit.placeholder = 'Вклад';
-            // editDeposit.type = 'text'
+            editDeposit.type = 'text'
 
             const editRegistration = document.createElement('input')
             editRegistration.placeholder = 'Регистрация';
-            // editRegistration.type = 'text'
+            editRegistration.type = 'text'
 
             const doEdit = document.createElement('button')
             doEdit.innerText= 'Применить';
