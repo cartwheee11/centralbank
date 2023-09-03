@@ -11,9 +11,6 @@
       background: rgb(248, 248, 250);
     }
 
-    .button-primary {
-    }
-
     
 
     p {
@@ -22,6 +19,14 @@
 
     .add-user-container input, .add-user-container button {
       width: 100%;
+    }
+
+    .user button{
+      margin-bottom: 0;
+    }
+
+    .bun-button {
+      margin-right: 10px;
     }
 
     .add-user-container .row{
@@ -46,6 +51,10 @@
       padding: 30px;
       border-radius: 20px;
       margin-bottom: 30px;
+    }
+
+    .users {
+
     }
 
     .sub {
@@ -196,6 +205,7 @@
           about.innerText = `Никнейм: ${nickname}\nICN: ${pass}\nEmail: ${email}\nРегистрация: ${registration}\nВклад: ${deposit}\nРоль: ${role}\n`
           const bunButton = document.createElement('button');
           bunButton.innerText = 'Удалить игрока'
+          bunButton.className="bun-button"
           bunButton.onclick = () => {
             el.style='padding-bottom: 30px; opacity: 0.5';
             api.removeUser(user.ref['@ref'].id).then(res => {
