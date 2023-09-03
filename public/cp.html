@@ -74,6 +74,14 @@
       margin-top: 30px !important
     }
 
+    .user input {
+      width: 100%;
+    }
+
+    .edit-nickname {
+      margin-top: 15px;
+    }
+
     @media screen and (max-width: 800px) {
       .cp-wrapper {
         grid-template-columns: 1fr;
@@ -251,7 +259,9 @@
             editRegistration.type = 'text'
 
             const doEdit = document.createElement('button')
-            doEdit.innerText= 'Применить';
+            doEdit.innerText = 'Применить';
+            doEdit.className = 'button-primary';
+            doEdit.style = 'width: 100%';
 
             doEdit.onclick = () => {
               editButton.disabled = true;
@@ -286,6 +296,8 @@
             const br = () => {
               return document.createElement('br');
             } 
+
+            editNickname.className = 'edit-nickname'
 
             el.append(br(), editNickname, br(), editPass, br(), editEmail, br(), editRole, br(), editDeposit, br(), editRegistration, br(), doEdit)
 
