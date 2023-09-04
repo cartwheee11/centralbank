@@ -9,15 +9,13 @@
   <style>
     body {
       background: rgb(248, 248, 250);
-    }
-
-    
+    }    
 
     p {
       font-size: 20px;
     }
 
-    .add-user-container input, .add-user-container button {
+    .add-user-container input, .add-user-container button, .add-user-container select{
       width: 100%;
     }
 
@@ -64,7 +62,7 @@
       margin-bottom: 30px;
     }
 
-    .sub input, .sub button {
+    .sub input, .sub button, .sub select {
       margin-right: 10px;
       margin-bottom: 0;
       margin-top: 10px;
@@ -102,12 +100,13 @@
         <h2>Добавить пользователя</h2>
         <div class="row">
           <div class="one-half column">
-            <input class="add-nickname" type="text" placeholder="Никнейм"> <input class="add-ICN" type="text" placeholder="ICN">
+            <input class="add-nickname" type="text" placeholder="Никнейм"> 
+            <input class="add-ICN" type="text" placeholder="ICN"></input>
             <input class="add-reason" type="text" placeholder="Причина обращения">
             
           </div>
           <div class="one-half column">
-            <input class="add-registration" type="text" placeholder="Регистрация">  
+            <select class="add-registration" type="text" placeholder="Регистрация"></select>
             <input class="add-email" type="text" placeholder="email">
           </div>
           <button class="add-button button-primary" style="width: 100%">Добавить</button>  
@@ -126,7 +125,39 @@
   <script type="module" type="text/javascript">
     const submissionsDOM = document.querySelector('.submissions');
 
+    function rand() {
+      let pass = '';
+      for(let i = 0; i < 6; i++) {
+        pass += Math.floor(Math.random() * 10);
+      }
+
+      return pass;
+    }
+
     import * as api from "./js/api.js";
+    import regs from './registration.json' assert {type: 'json'};
+    function createRegsDropdown() {
+      const el = document.createElement('select');
+
+      regs.forEach((reg, id) => {
+        const opt = document.createElement('option');
+        const [code, name] = reg.split(' — ');
+        opt.innerText = name;
+        opt.value = code;
+
+        if(id == 0) {
+          opt.selected = true;
+        }
+
+        el.append(opt)
+      })
+
+      return el;
+    }
+
+    //выбор доступных регионов
+    
+
     api.getCpData().then(res => {
       if(res.success) {
         console.log(res.submissions);
@@ -159,17 +190,23 @@
             })
           }
 
-          const regInput = document.createElement('input');
-          regInput.placeholder = 'задать регистрацию'
-          regInput.type = 'text';
+          // const regInput = document.createElement('input');
+          const regInput = createRegsDropdown();
+
           const passInput = document.createElement('input');
+
+          regInput.onchange = () => {
+            passInput.value = regInput.options[regInput.selectedIndex].value + rand();
+          }
+
           passInput.type = 'text'
           passInput.placeholder = 'задать ICN';
+          passInput.value = regInput.options[regInput.selectedIndex].value + rand();
           allowButton.onclick = () => {
             console.log('клик клик')
             const pass = passInput.value;
-            const registration = regInput.value;
-
+            // const registration = regInput.value;
+            const registration = regInput.options[regInput.selectedIndex].text;
 
             const { name, email, reason } = data;
             console.log(pass, registration, name, email, reason);
@@ -317,7 +354,25 @@
 
     const addNickname = document.querySelector(".add-nickname");
     const addPass = document.querySelector(".add-ICN");
-    const addRegistration = document.querySelector(".add-registration");
+
+    // addPass.parentElement.replaceChild(createRegsDropdown(), addPass);
+    // addPass.onchange = () {
+
+    // }
+
+    let oldAddReg = document.querySelector(".add-registration");
+    const addRegistration = createRegsDropdown()
+
+    addRegistration.className = '.add-registration'
+    oldAddReg.parentElement.replaceChild(addRegistration, oldAddReg);
+
+    addRegistration.onchange = () => {
+      addPass.value = addRegistration.options[addRegistration.selectedIndex].value + rand();
+      // addPass.value = 'askldj'
+    }
+
+    addPass.value = addRegistration.options[addRegistration.selectedIndex].value + rand();
+
     const addEmail = document.querySelector(".add-email");
     const addButton = document.querySelector(".add-button");
     const addReason = document.querySelector(".add-reason");
@@ -325,7 +380,7 @@
     addButton.onclick = () => {
       const nickname = addNickname.value;
       const pass = addPass.value;
-      const registration = addRegistration.value;
+      const registration = addRegistration.options[addRegistration.selectedIndex].text;
       const email = addEmail.value;
       const reason = addReason.value;
       api.register(nickname, email, reason, pass, registration).then(res => {
