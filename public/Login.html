@@ -190,7 +190,7 @@
           <div class="item features-without-image col-12 col-md-6">
               <div class="item-wrapper">
                   <div class="text-wrapper">
-                      <h6 class="card-title mbr-fonts-style mb-3 display-5"><strong class="account-deposit">Загрузка...</strong>₲</h6>
+                      <h6 class="card-title mbr-fonts-style mb-3 display-5"><strong class="account-deposit">Загрузка...</strong> <strong>₲</strong></h6>
                       <p class="account-deposit mbr-text mbr-fonts-style display-7">Сберегательный счёт</p>
                   </div>
               </div>
@@ -314,7 +314,13 @@
     function updateAccoutInfo(nickname, pass, registration, deposit) {
       accountNickname.innerText = nickname;
       accountPass.innerText = pass.slice(0, 4) + '**********';
-      accountDeposit.innerText = deposit || 0;
+      accountDeposit.innerText =  ((deposit || 0))
+    .toString()
+    .split('')
+    .reverse()
+    .map((char, i) => char + (i % 3 ? '' : ' '))
+    .reverse()
+    .join('')
       accountRegistration.innerText = registration || 'Без прописки';
 
       loginSection.style = 'display: none';
