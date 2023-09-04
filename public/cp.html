@@ -240,7 +240,7 @@
           const el = document.createElement('div');
           el.style='padding-bottom: 30px';
 
-          const { nickname, email, reason, pass, registration, deposit, role} = data;
+          let { nickname, email, reason, pass, registration, deposit, role} = data;
 
           const about =  document.createElement('p');
           about.innerText = `Никнейм: ${nickname}\nICN: ${pass}\nEmail: ${email}\nРегистрация: ${registration}\nВклад: ${deposit}\nРоль: ${role}\n`
@@ -283,9 +283,57 @@
             editRole.placeholder = 'Роль';
             editRole.type = 'text'
 
+
+
             const editDeposit = document.createElement('input')
+            editDeposit.style = 'margin-bottom: 0px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; border-bottom: none'
             editDeposit.placeholder = 'Вклад';
             editDeposit.type = 'text'
+
+            const editDepositAdd = document.createElement('button')
+            editDepositAdd.innerText = 'Начислить'
+            editDepositAdd.style = 'width: 50%; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-left-radius: 0px; margin-bottom: 15px'
+
+            const editDepositTake = document.createElement('button')
+            editDepositTake.innerText = 'Снять'
+            editDepositTake.style = 'width: 50%; border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-right: none'
+            editDepositTake.onclick = () => {
+              editDepositTake.disabled = true;
+              el.style = 'padding-bottom: 30px; opacity: 0.5';
+              api.editUser(user.ref['@ref'].id, {
+                deposit: (deposit || 0) - (editDeposit.value || 0)
+              }).then(res => {
+                if(res.success) {
+                  el.style = 'padding-bottom: 30px; opacity: 1';
+                  about.innerText = `Никнейм: ${res.data.nickname}\nICN: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nВклад: ${res.data.deposit}\nРоль: ${res.data.role}\n`
+                  deposit = res.data.deposit || 0;
+                  editDepositTake.disabled = false;
+                  editDeposit.value = '';
+                } else {
+                  el.style = 'padding-bottom: 30px; opacity: 1';                  
+                  alert(res.message)
+                }
+              })
+            }
+
+            editDepositAdd.onclick = () => {
+              editDepositAdd.disabled = true;
+              el.style = 'padding-bottom: 30px; opacity: 0.5';
+              api.editUser(user.ref['@ref'].id, {
+                deposit: (parseFloat(deposit  || 0)) + (parseFloat(editDeposit.value  || 0))
+              }).then(res => {
+                if(res.success) {
+                  el.style = 'padding-bottom: 30px; opacity: 1';
+                  about.innerText = `Никнейм: ${res.data.nickname}\nICN: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nВклад: ${res.data.deposit}\nРоль: ${res.data.role}\n`
+                  deposit = res.data.deposit || 0;
+                  editDepositAdd.disabled = false;
+                  editDeposit.value = '';
+                } else {
+                  el.style = 'padding-bottom: 30px; opacity: 1';                  
+                  alert(res.message)
+                }
+              })
+            }
 
             const editRegistration = document.createElement('input')
             editRegistration.placeholder = 'Регистрация';
@@ -332,7 +380,7 @@
 
             editNickname.className = 'edit-nickname'
 
-            el.append(br(), editNickname, br(), editPass, br(), editEmail, br(), editRole, br(), editDeposit, br(), editRegistration, br(), doEdit)
+            el.append(br(), editNickname, br(), editPass, br(), editEmail, br(), editRole, br(), editDeposit, editDepositTake, editDepositAdd, br(), editRegistration, br(), doEdit)
 
           }
 
@@ -379,9 +427,9 @@
       const registration = addRegistration.options[addRegistration.selectedIndex].text;
       const email = addEmail.value;
       const reason = addReason.value;
+      addButton.innerText = 'Подождите...'
       api.register(nickname, email, reason, pass, registration).then(res => {
         if(res.success) {
-          addButton.innerText = 'Подождите...'
           location.reload()
         } else {
           alert(JSON.stringify(res.message))
