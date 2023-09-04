@@ -51,10 +51,6 @@
       margin-bottom: 30px;
     }
 
-    .users {
-
-    }
-
     .sub {
       background-color: white;
       padding: 30px;
@@ -261,6 +257,7 @@
 
           const editButton = document.createElement('button');
           editButton.innerText = 'Изменить';
+
           editButton.onclick = () => {
             editButton.disabled = true;
 
@@ -344,6 +341,27 @@
             doEdit.className = 'button-primary';
             doEdit.style = 'width: 100%';
 
+            const closeEditButton = document.createElement('button');
+            closeEditButton.innerText = 'Скрыть';
+            closeEditButton.style = 'margin-top: 15px; width: 100%'
+            closeEditButton.onclick = () => {
+              const inputs = el.querySelectorAll('input');
+              const brs = el.querySelectorAll('.br');
+              Array.prototype.forEach.call(inputs, elem => {
+                elem.remove()
+              })
+
+              Array.prototype.forEach.call(brs, elem => {
+                elem.remove()
+              })
+
+              editDepositAdd.remove(); editDepositTake.remove(); doEdit.remove(); closeEditButton.remove();
+              editButton.disabled = false;
+              // [editDepositAdd, editDepositTake, doEdit].forEach(elem => {
+                // elem.remove()
+              // })
+            }
+
             doEdit.onclick = () => {
               editButton.disabled = true;
               el.style = 'padding-bottom: 30px; opacity: 0.5';
@@ -375,19 +393,22 @@
             }
 
             const br = () => {
-              return document.createElement('br');
+              const br = document.createElement('br');
+              br.className="br"
+              return br;
             } 
 
             editNickname.className = 'edit-nickname'
 
             el.append(br(), editNickname, br(), editPass, br(), editEmail, br(), editRole, br(), editDeposit, editDepositTake, editDepositAdd, br(), editRegistration, br(), doEdit)
-
+            el.append(closeEditButton);
           }
 
           el.append(about);
           el.append(bunButton);
-          el.append(editButton)
+          el.append(editButton);
           el.className = 'user'
+
           usersDOM.append(el);
         })
 
