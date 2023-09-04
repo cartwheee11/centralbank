@@ -240,6 +240,7 @@
               <strong>Вход в аккаунт</strong></h1>
               <p><input placeholder="Никнейм" type="text" class="form-control nickname"></p>
               <p><input placeholder="ICN / ILN" type="password" class="form-control pass"></p>
+              <p style="color: red" class="login-error-message"></p>
             <div class="mbr-section-btn mt-4"><button class="submit-button btn btn-secondary display-7"><span class="mbrib-users mbr-iconfont mbr-iconfont-btn"></span>Войти</button></div>
           </div>
         </div>
@@ -325,16 +326,14 @@
       const user = JSON.parse(localStorage.getItem('user'));
       const auth = JSON.parse(localStorage.getItem('auth'));
 
-      updateAccoutInfo(user.nickname, auth.pass, user.registration, user.deposit)   
-      console.log('askjdhjkas')   
+      updateAccoutInfo(user.nickname, auth.pass, user.registration, user.deposit);
     }
     
     submitButton.onclick = () => {
       api.login(nicknameInput.value, passInput.value).then(res => {
         if(res.success) {
           const user = res.user
-          updateAccoutInfo(user.nickname, passInput.value, user.registration)
-          console.log(res.user)
+          updateAccoutInfo(user.nickname, passInput.value, user.registration, user.deposit)
 
           localStorage.setItem('user', JSON.stringify(res.user));
           localStorage.setItem('auth', JSON.stringify({
@@ -342,7 +341,9 @@
             pass: passInput.value
           }));
         } else {
-          alert(res.message)
+          const errorDOM = document.querySelector('.login-error-message');
+          errorDOM.innerText = res.message;
+          // alert(res.message)
         }
       })  
     }

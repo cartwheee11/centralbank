@@ -160,7 +160,6 @@
 
     api.getCpData().then(res => {
       if(res.success) {
-        console.log(res.submissions);
         const subs = res.submissions;
         const users = res.users;
 
@@ -203,16 +202,13 @@
           passInput.placeholder = 'задать ICN';
           passInput.value = regInput.options[regInput.selectedIndex].value + rand();
           allowButton.onclick = () => {
-            console.log('клик клик')
             const pass = passInput.value;
             // const registration = regInput.value;
             const registration = regInput.options[regInput.selectedIndex].text;
 
             const { name, email, reason } = data;
-            console.log(pass, registration, name, email, reason);
             api.register(name, email, reason, pass, registration).then((res) => {
               if(res.success) {
-                console.log(sub.ref['@ref'].id);
                 api.removeSubmission(sub.ref['@ref'].id).then((res) => {
                   if(!res.success) {
                     alert('удаление заявки не состоялось')

@@ -283,7 +283,6 @@
     const exchangeRate = document.querySelector('.exchangeRate');
     const exchangeRate2 = document.querySelector('.exchangeRate2');
     fetch('https://centralbank.pw/api/getCurrentRate').then(res => res.json()).then(cur => {
-      console.log(typeof cur);
 
       exchangeRate2.innerText = `1₲ → $${(cur - 0.5).toFixed(2)}`
       exchangeRate.innerText = `$${(cur + 0.5).toFixed(2)} → 1₲`

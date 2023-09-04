@@ -14,8 +14,6 @@ export async function login(nickname, pass) {
     body: JSON.stringify({nickname, pass})
   });
 
-  console.log(res)
-
   const json = res.json();
   return json;
 }
@@ -23,14 +21,11 @@ export async function login(nickname, pass) {
 export async function getCpData() {
 
   const authJSON = localStorage.getItem('auth');
-  console.log(authJSON)
   if(authJSON) {
     const res = await fetch('/api/getCpData', {
       method: 'post',
       body: authJSON
     });
-
-    console.log(res)
 
     const json = res.json();
     return json;
@@ -42,7 +37,6 @@ export async function getCpData() {
 }
 
 export async function register(nickname, email, reason, pass, registration) {
-  console.log(nickname, email, reason, pass, registration)
 
   const auth = JSON.parse(localStorage.getItem('auth'));
 
