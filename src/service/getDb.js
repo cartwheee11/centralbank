@@ -10,3 +10,5 @@ let db = new fauna.Client({
 });
 
 module.exports = db;
+
+//комментарий
