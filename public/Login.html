@@ -313,7 +313,7 @@
         accountPass.innerText = auth.pass
         showPassButton.innerText = 'Скрыть 🤫';  
       } else {
-        accountPass.innerText = auth.pass.slice(0, 4) + '******';
+        accountPass.innerText = auth.pass.slice(0, 4) + '●●●●●';
         showPassButton.innerText = 'Показать 🤔';  
       }
       
@@ -322,7 +322,7 @@
 
     function updateAccoutInfo(nickname, pass, registration, deposit) {
       accountNickname.innerText = nickname;
-      accountPass.innerText = pass.slice(0, 4) + '******';
+      accountPass.innerText = pass.slice(0, 4) + '●●●●●';
       accountDeposit.innerText =  ((deposit || 0))
     .toString()
     .split('')
