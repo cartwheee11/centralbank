@@ -201,7 +201,7 @@
                       <h6 class="card-title mbr-fonts-style col-md-12 col-12 display-5">
                           <strong>ICN</strong></h6>
                           <p class="account-pass mbr-text mbr-fonts-style display-7">Загрузка...</p>
-                          <button class="show-pass-button" style="background: #f5cb7c; padding: 10px 20px; border-radius: 100px; font-family: 'Comfortaa', display; color: #6a4808"> Показать</button>
+                          <button class="show-pass-button" style="background: #f5cb7c; padding: 10px 20px; border-radius: 100px; font-family: 'Comfortaa', display; color: #6a4808"> Показать 🤔</button>
                   </div>
               </div>
           </div>
@@ -300,7 +300,7 @@
     const showPassButton = document.querySelector('.show-pass-button');
     showPassButton.onclick = () => {
       const auth = JSON.parse(localStorage.getItem('auth'));
-      if(showPassButton.innerText == 'Показать') {
+      if(showPassButton.innerText == 'Показать 🤔') {
         accountPass.innerText = auth.pass
         showPassButton.innerText = 'Скрыть 🤫';  
       } else {
