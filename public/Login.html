@@ -117,10 +117,10 @@
       <div class="navbar-brand">
         <span class="navbar-logo">
           
-            <a href="index.html"><img src="/lib/r.mobirisesite.com/324644/assets/images/img-8894-removebg-preview-96x64-2.png?v=1QAjUz" alt="" style="height: 3rem;"></a>
+            <a href="index.html"><img src="/lib/r.mobirisesite.com/324644/assets/images/17-20230814030211-160x160-3.png?v=1QAjUz" alt="" style="height: 3rem;"></a>
           
         </span>
-        <span class="navbar-caption-wrap"><a class="navbar-caption text-black text-primary display-4" href="index.html">Central Bank</a></span>
+        <span class="navbar-caption-wrap"><a class="navbar-caption text-black text-primary display-4" href="index.html">Empire Express</a></span>
       </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <div class="hamburger">
@@ -259,7 +259,7 @@
         <div class="media-container-row align-center mbr-white">
             <div class="col-12">
                 <p class="mbr-text mb-0 mbr-fonts-style display-7">
-                    © Central Bank 2023 - Wszystkie prawa zastrzeżone
+                    © Empire Express 2023 - Wszystkie prawa zastrzeżone
                 </p>
             </div>
         </div>
@@ -300,12 +300,12 @@
     const showPassButton = document.querySelector('.show-pass-button');
     showPassButton.onclick = () => {
       const auth = JSON.parse(localStorage.getItem('auth'));
-      if(showPassButton.innerText == 'Показать') {
+      if(showPassButton.innerText == 'Показать 🤔') {
         accountPass.innerText = auth.pass
-        showPassButton.innerText = 'Скрыть';  
+        showPassButton.innerText = 'Скрыть 🤫';  
       } else {
-        accountPass.innerText = auth.pass.slice(0, 4) + '**********';
-        showPassButton.innerText = 'Показать';  
+        accountPass.innerText = auth.pass.slice(0, 4) + '******';
+        showPassButton.innerText = 'Показать 🤔';  
       }
       
 
@@ -313,7 +313,7 @@
 
     function updateAccoutInfo(nickname, pass, registration, deposit) {
       accountNickname.innerText = nickname;
-      accountPass.innerText = pass.slice(0, 4) + '**********';
+      accountPass.innerText = pass.slice(0, 4) + '******';
       accountDeposit.innerText =  ((deposit || 0))
     .toString()
     .split('')
