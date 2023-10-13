@@ -300,7 +300,7 @@
     const showPassButton = document.querySelector('.show-pass-button');
     showPassButton.onclick = () => {
       const auth = JSON.parse(localStorage.getItem('auth'));
-      if(showPassButton.innerText == 'Показать 🤔') {
+      if(showPassButton.innerText == 'Показать') {
         accountPass.innerText = auth.pass
         showPassButton.innerText = 'Скрыть 🤫';  
       } else {
