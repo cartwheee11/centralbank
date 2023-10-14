@@ -15,8 +15,8 @@ export default async function (req, res) {
   }).then(res => res.json()).then(async json => {
     if(json.success) {
       const user = json.user;
-      if (user.role != 'admin'){
-        res.json({ success: false, message: 'вы не админ' });
+      if (user.role != 'Менеджер'){
+        res.json({ success: false, message: 'У Вас нет данного права' });
         return;
       } 
 
