@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="/lib/r.mobirisesite.com/324644/assets/images/17-20230814030211-128x128-2.png?v=1QAjUz" type="image/x-icon">
@@ -90,16 +90,16 @@
   </style>
 </head>
 <body>
-  <a href="Login.html" style="position: fixed; bottom: 10px; right: 10px; background-color: #f5cb7c; padding: 10px 20px; color: #6a4808; border-radius: 100px; box-shadow: 0px 7px 21px 0 rgba(34, 60, 80, 0.2); font-family: helvetica;">В личный кабинет</a>
+  <a href="Login.html" style="position: fixed; bottom: 10px; right: 10px; background-color: #f5cb7c; padding: 10px 20px; color: #6a4808; border-radius: 100px; box-shadow: 0px 7px 21px 0 rgba(34, 60, 80, 0.2); font-family: helvetica;">Вернуться в личный кабинет</a>
   <div class="cp-wrapper container-fluid">
-    <div class="submissions" style="display: inline-block;" ><h2>Заявки</h2></div>
+    <div class="submissions" style="display: inline-block;" ><h2>Активные обращения</h2></div>
     <div class="users" style="display: inline-block; vertical-align: top;" >
       <div class="add-user-container">
         <h2>Добавить пользователя</h2>
         <div class="row">
           <div class="one-half column">
             <input class="add-nickname" type="text" placeholder="Никнейм"> 
-            <input class="add-ICN" type="text" placeholder="ICN"></input>
+            <input class="add-ICN" type="text" placeholder="ICN-код"></input>
             <input class="add-reason" type="text" placeholder="Причина обращения">
             
           </div>
@@ -197,7 +197,7 @@
           }
 
           passInput.type = 'text'
-          passInput.placeholder = 'задать ICN';
+          passInput.placeholder = 'Указать ICN-код';
           passInput.value = regInput.options[regInput.selectedIndex].value + rand();
           allowButton.onclick = () => {
             const pass = passInput.value;
@@ -219,7 +219,7 @@
               }
             })
           }
-          subInfo.innerText = `E-mail: ${data.email}\nИмя: ${data.name}\nПричина обращения: ${data.reason}\n`
+          subInfo.innerText = `E-mail: ${data.email}\nНикнейм: ${data.name}\nПричина обращения: ${data.reason}\n`
           el.style = 'padding-bottom: 30px';
           el.className = 'sub'
           el.append(subInfo)
@@ -241,7 +241,7 @@
           let { nickname, email, reason, pass, registration, deposit, role} = data;
 
           const about =  document.createElement('p');
-          about.innerText = `Никнейм: ${nickname}\nICN: ${pass}\nEmail: ${email}\nРегистрация: ${registration}\nВклад: ${deposit}\nРоль: ${role}\n`
+          about.innerText = `Никнейм: ${nickname}\nICN: ${pass}\nEmail: ${email}\nРегистрация: ${registration}\nБаланс: ${deposit}&nbsp;₲\nДолжность: ${role}\n`
           const bunButton = document.createElement('button');
           bunButton.innerText = 'Удалить игрока'
           bunButton.className="bun-button"
@@ -249,7 +249,7 @@
             el.style='padding-bottom: 30px; opacity: 0.5';
             api.removeUser(user.ref['@ref'].id).then(res => {
               if(!res.success) {
-                alert('удаление пользователя не состоялось')
+                alert('Удаление пользователя не состоялось')
               } else {
                 // location.reload();
                 el.style='display: none';
@@ -268,7 +268,7 @@
             editNickname.type = 'text'
 
             const editPass = document.createElement('input')
-            editPass.placeholder = 'ICN';
+            editPass.placeholder = 'ICN-код';
             editPass.type = 'text'
 
             // const eiditReason = document.createElement('input')
@@ -279,14 +279,14 @@
             editEmail.type = 'text'
 
             const editRole = document.createElement('input')
-            editRole.placeholder = 'Роль';
+            editRole.placeholder = 'Должность';
             editRole.type = 'text'
 
 
 
             const editDeposit = document.createElement('input')
             editDeposit.style = 'margin-bottom: 0px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; border-bottom: none'
-            editDeposit.placeholder = 'Вклад';
+            editDeposit.placeholder = 'Баланс';
             editDeposit.type = 'text'
 
             const editDepositAdd = document.createElement('button')
@@ -304,7 +304,7 @@
               }).then(res => {
                 if(res.success) {
                   el.style = 'padding-bottom: 30px; opacity: 1';
-                  about.innerText = `Никнейм: ${res.data.nickname}\nICN: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nВклад: ${res.data.deposit}\nРоль: ${res.data.role}\n`
+                  about.innerText = `Никнейм: ${res.data.nickname}\nICN-код: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nБаланс: ${res.data.deposit}&nbsp;₲\nДолжность: ${res.data.role}\n`
                   deposit = res.data.deposit || 0;
                   editDepositTake.disabled = false;
                   editDeposit.value = '';
@@ -323,7 +323,7 @@
               }).then(res => {
                 if(res.success) {
                   el.style = 'padding-bottom: 30px; opacity: 1';
-                  about.innerText = `Никнейм: ${res.data.nickname}\nICN: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nВклад: ${res.data.deposit}\nРоль: ${res.data.role}\n`
+                  about.innerText = `Никнейм: ${res.data.nickname}\nICN-код: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nБаланс: ${res.data.deposit}&nbsp;₲\nДолжность: ${res.data.role}\n`
                   deposit = res.data.deposit || 0;
                   editDepositAdd.disabled = false;
                   editDeposit.value = '';
@@ -378,7 +378,7 @@
               }).then(res => {
                 if(res.success) {
                   el.style = 'padding-bottom: 30px; opacity: 1';
-                  about.innerText = `Никнейм: ${res.data.nickname}\nICN: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nВклад: ${res.data.deposit}\nРоль: ${res.data.role}\n`
+                  about.innerText = `Никнейм: ${res.data.nickname}\nICN-код: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nБаланс: ${res.data.deposit}&nbsp;₲\nДолжность: ${res.data.role}\n`
                   editButton.disabled = false;
 
                   editNickname.value = '';
