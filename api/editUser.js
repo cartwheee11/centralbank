@@ -15,7 +15,7 @@ export default async function (req, res) {
     body: JSON.stringify(auth)
   }).then(res => res.json()).then(async json => {
     console.log(json)
-    if(json.success && json.user.role == 'admin') {
+    if(json.success && json.user.role == 'Менеджер') {
       if(ref) {
         // изменить в соответсвии с data
         db.query(
@@ -32,7 +32,7 @@ export default async function (req, res) {
         })
       }
     } else {
-      res.json({success: false, message: 'авторизация не пройдена'})
+      res.json({success: false, message: 'Вы не вошли в личный кабинет'})
     }
   })
 
