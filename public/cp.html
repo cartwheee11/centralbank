@@ -89,22 +89,36 @@
   </style>
 </head>
 <body>
+
+  <header>
+    <img src="/logo.png" alt="Логотип">
+    <!-- Логотип сайта -->
+    <nav id="menu">
+      <!-- Меню -->
+      <ul>
+        <li><a href="/">Главная</a></li>
+        <li><a href="/about">О нас</a></li>
+        <li><a href="/contacts">Контакты</a></li>
+      </ul>
+    </nav>
+  </header>
+
   <a href="Login.html" style="position: fixed; bottom: 10px; right: 10px; background-color: #f5cb7c; padding: 10px 20px; color: #6a4808; border-radius: 100px; box-shadow: 0px 7px 21px 0 rgba(34, 60, 80, 0.2); font-family: helvetica;">В личный кабинет</a>
   <div class="cp-wrapper container-fluid">
-    <div class="submissions" style="display: inline-block;" ><h2>Заявки</h2></div>
+    <div class="submissions" style="display: inline-block;" ><h2>Активные обращения</h2></div>
     <div class="users" style="display: inline-block; vertical-align: top;" >
       <div class="add-user-container">
         <h2>Добавить пользователя</h2>
         <div class="row">
           <div class="one-half column">
             <input class="add-nickname" type="text" placeholder="Никнейм"> 
-            <input class="add-ICN" type="text" placeholder="ICN"></input>
+            <input class="add-ICN" type="text" placeholder="ICN-код"></input>
             <input class="add-reason" type="text" placeholder="Причина обращения">
             
           </div>
           <div class="one-half column">
             <select class="add-registration" type="text" placeholder="Регистрация"></select>
-            <input class="add-email" type="text" placeholder="email">
+            <input class="add-email" type="text" placeholder="E-mail">
           </div>
           <button class="add-button button-primary" style="width: 100%">Добавить</button>  
           
@@ -196,7 +210,7 @@
           }
 
           passInput.type = 'text'
-          passInput.placeholder = 'задать ICN';
+          passInput.placeholder = 'Указать ICN-код';
           passInput.value = regInput.options[regInput.selectedIndex].value + rand();
           allowButton.onclick = () => {
             const pass = passInput.value;
@@ -208,7 +222,7 @@
               if(res.success) {
                 api.removeSubmission(sub.ref['@ref'].id).then((res) => {
                   if(!res.success) {
-                    alert('удаление заявки не состоялось')
+                    alert('Удаление заявки не состоялось')
                   } else {
                     location.reload();
                   }
@@ -218,7 +232,7 @@
               }
             })
           }
-          subInfo.innerText = `E-mail: ${data.email}\nИмя: ${data.name}\nПричина обращения: ${data.reason}\n`
+          subInfo.innerText = `E-mail: ${data.email}\nНикнейм: ${data.name}\nПричина обращения: ${data.reason}\n`
           el.style = 'padding-bottom: 30px';
           el.className = 'sub'
           el.append(subInfo)
@@ -267,7 +281,7 @@
             editNickname.type = 'text'
 
             const editPass = document.createElement('input')
-            editPass.placeholder = 'ICN';
+            editPass.placeholder = 'ICN-код';
             editPass.type = 'text'
 
             // const eiditReason = document.createElement('input')
@@ -278,14 +292,14 @@
             editEmail.type = 'text'
 
             const editRole = document.createElement('input')
-            editRole.placeholder = 'Роль';
+            editRole.placeholder = 'Должность';
             editRole.type = 'text'
 
 
 
             const editDeposit = document.createElement('input')
             editDeposit.style = 'margin-bottom: 0px; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; border-bottom: none'
-            editDeposit.placeholder = 'Вклад';
+            editDeposit.placeholder = 'Баланс';
             editDeposit.type = 'text'
 
             const editDepositAdd = document.createElement('button')
@@ -303,7 +317,7 @@
               }).then(res => {
                 if(res.success) {
                   el.style = 'padding-bottom: 30px; opacity: 1';
-                  about.innerText = `Никнейм: ${res.data.nickname}\nICN: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nВклад: ${res.data.deposit}\nРоль: ${res.data.role}\n`
+                  about.innerText = `Никнейм: ${res.data.nickname}\nICN-код: ${res.data.pass}\nE-mail: ${res.data.email}\nРегистрация: ${res.data.registration}\nБаланс: ${res.data.deposit}\nДолжность: ${res.data.role}\n`
                   deposit = res.data.deposit || 0;
                   editDepositTake.disabled = false;
                   editDeposit.value = '';
@@ -322,7 +336,7 @@
               }).then(res => {
                 if(res.success) {
                   el.style = 'padding-bottom: 30px; opacity: 1';
-                  about.innerText = `Никнейм: ${res.data.nickname}\nICN: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nВклад: ${res.data.deposit}\nРоль: ${res.data.role}\n`
+                  about.innerText = `Никнейм: ${res.data.nickname}\nICN-код: ${res.data.pass}\nE-mail: ${res.data.email}\nРегистрация: ${res.data.registration}\nБаланс: ${res.data.deposit}\nДолжность: ${res.data.role}\n`
                   deposit = res.data.deposit || 0;
                   editDepositAdd.disabled = false;
                   editDeposit.value = '';
@@ -377,7 +391,7 @@
               }).then(res => {
                 if(res.success) {
                   el.style = 'padding-bottom: 30px; opacity: 1';
-                  about.innerText = `Никнейм: ${res.data.nickname}\nICN: ${res.data.pass}\nEmail: ${res.data.email}\nРегистрация: ${res.data.registration}\nВклад: ${res.data.deposit}\nРоль: ${res.data.role}\n`
+                  about.innerText = `Никнейм: ${res.data.nickname}\nICN-код: ${res.data.pass}\nE-mail: ${res.data.email}\nРегистрация: ${res.data.registration}\nБаланс: ${res.data.deposit}\nДолжность: ${res.data.role}\n`
                   editButton.disabled = false;
 
                   editNickname.value = '';
