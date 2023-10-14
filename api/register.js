@@ -12,7 +12,7 @@ export default async function (req, res) {
     method: 'post',
     body: JSON.stringify(auth)
   }).then(res => res.json()).then(async json => {
-    if(json.success && json.user.role == 'admin') {
+    if(json.success && json.user.role == 'Менеджер') {
 
       if(nickname && email && reason && pass && registration) {
         db.query(q.Create(q.Collection('users'), {
@@ -25,11 +25,11 @@ export default async function (req, res) {
           res.json({ success: false, message: 'Ошибка базы данных (вероятно, пользователь с таким ником уже существует). Текст ошибки:' + JSON.stringify(e) })
         })
       } else {
-        res.json({success: false, message: 'поля не должны быть пустыми'})
+        res.json({success: false, message: 'Поля не должны быть пустыми'})
       }
 
     } else {
-      res.json({success: false, message: 'авторизация не пройдена'})
+      res.json({success: false, message: 'Вы не вошли в личный кабинет'})
     }
   });
 
