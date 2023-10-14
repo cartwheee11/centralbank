@@ -15,7 +15,7 @@ export default async function (req, res) {
     method: 'post',
     body: JSON.stringify(auth)
   }).then(res => res.json()).then(async json => {
-    if(json.success && json.user.role == 'admin') {
+    if(json.success && json.user.role == 'Менеджер') {
       if(ref) {
         db.query(q.Delete(
           q.Ref(q.Collection('submissions'), ref + '')
@@ -26,7 +26,7 @@ export default async function (req, res) {
         })
       }
     } else {
-      res.json({success: false, message: 'авторизация не пройдена'})
+      res.json({success: false, message: 'Вы не вошли в личный кабинет'})
     }
   })
 
